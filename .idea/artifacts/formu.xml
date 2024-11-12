@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="formu">
+    <output-path>$PROJECT_DIR$/out/artifacts/formu</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="formu" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="formu/web/Web" />
+    </root>
+  </artifact>
+</component>
