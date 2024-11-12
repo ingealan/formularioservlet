@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manejo de Formulario</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+<div>
+    <h1>Manejo de Formulario</h1>
+    <form action="/ingresar" method="post">
+        <label for="username">Ingrese el usuario</label>
+        <input type="text" name="username" id="username" placeholder="Usuario" required>
+
+        <label for="password">Ingrese la contraseña</label>
+        <input type="password" name="password" id="password" placeholder="Contraseña" required>
+
+        <label for="email">Ingrese el email</label>
+        <input type="email" name="email" id="email" placeholder="alguien@example.com" required>
+
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+</body>
+</html>
