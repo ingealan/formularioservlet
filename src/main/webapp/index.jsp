@@ -1,3 +1,11 @@
+<%-- Incluimos el tag del page --%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%-- importamos la libreria utilMap --%>
+<%@page import="java.util.Map"%>
+<%-- Incluimos un scriptles para llamar a los errores --%>
+<%
+Map<String,String> errores = (Map<String, String>) request.getAttribute("errores");
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,17 +15,39 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+<h1>Manejo de Formulario</h1>
+<%-- Implementamos una condicion para saber si exiten errores o no --%>
+    <%-- Eso quiere decir si errores esta vacio o no --%>
+<%
+if(errores!=null && errores.size()>0){
+
+
+%>
+<ul>
+    <%
+        //Listamos los errores
+        for (String error:errores.values()){%>
+    <li>
+        <%=errores%>
+    </li>
+    <%
+        }
+    %>
+</ul>
+<%
+    }
+%>
 <div>
-    <h1>Manejo de Formulario</h1>
+
     <form action="/formu/ingresar" method="post">
         <label for="username">Ingrese el usuario</label>
-        <input type="text" name="username" id="username" placeholder="Usuario" required>
+        <input type="text" name="username" id="username" placeholder="Usuario" >
 
         <label for="password">Ingrese la contraseña</label>
-        <input type="password" name="password" id="password" placeholder="Contraseña" required>
+        <input type="password" name="password" id="password" placeholder="Contraseña" >
 
         <label for="email">Ingrese el email</label>
-        <input type="email" name="email" id="email" placeholder="alguien@example.com" required>
+        <input type="email" name="email" id="email" placeholder="alguien@example.com" >
 
        <!--Lenguajes de programacion-->
         <div>

@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
+import java.util.*;
 
 // Implementamos el path de acceso al Servlet
 @WebServlet("/ingresar")
@@ -28,9 +28,39 @@ public class Servlet extends HttpServlet {
         String pais = req.getParameter("pais");
         String[] roles = req.getParameterValues("roles");
         boolean habilitar = req.getParameter("habilitar")!=null && req.getParameter("habilitar").equals("on");
-        // Implementamos la variable PrintWriter
-        PrintWriter out = resp.getWriter();
+       // List<String> errores = new ArrayList<>();
+        //Inicializamos una Lista
+        Map<String,String> errores = new HashMap<>();
 
+        if(username == null || username.isBlank()) {
+
+            errores.put("username"," El campo username es necesario");
+        }
+        if(password == null || password.isBlank()) {
+            errores.put("password"," El campo password es necesario");
+        }
+        if(email == null || !email.contains("@")) {
+            errores.put("email"," El campo email es necesario o debe contener el @");
+        }
+        if(lenguajes == null || lenguajes.length == 0) {
+            errores.put("lenguajes"," El campo lenguajes es necesario");
+        }
+        if(idioma == null) {
+            errores.put("idioma"," El campo idioma es necesario");
+        }
+        if(pais == null || pais.isBlank()) {
+            errores.put("pais","El campo pais es necesario");
+        }
+        if(roles == null || roles.length == 0) {
+            errores.put("roles","El campo roles es necesario");
+        }
+
+
+        //Validamos que todos los campos esten llenos y no esten vacios
+
+        if(errores.isEmpty()) {
+        // Implementamos la variable PrintWriter
+        try(PrintWriter out = resp.getWriter()){
         // Creo la plantilla HTML
         out.print("<!DOCTYPE html>");
         out.println("<html>");
@@ -41,6 +71,8 @@ public class Servlet extends HttpServlet {
         out.println("</head>");
         out.println("<body>");
         out.println("<h1>Manejo de formularios</h1>");
+
+
         out.println("<ul>");
         out.println("<li>Usuario: " + username + "</li>");
         out.println("<li>Password: " + password + "</li>");
@@ -61,7 +93,24 @@ public class Servlet extends HttpServlet {
         out.println("</ul>");
         out.println("<li>Habilitar: " + habilitar + "</li>");
         out.println("</ul>");
-        out.println("</body>");
-        out.println("</html>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+
+
+        }else{
+            //errores.forEach(error -> {
+
+            // out.println("<li>"+error+"</li>");
+
+            //});
+            //out.println("<p><a href=\"/formu/index.jsp\">Volver al Index </a></p>");
+            req.setAttribute("errores", errores);
+            //Se obtiene la informacion de un cabecero,
+            //El metodo get server context obtiene informacion que se contiene dentro de la URL
+            //Los cabeceros son metadatosssss
+            getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+        }
+
     }
 }
